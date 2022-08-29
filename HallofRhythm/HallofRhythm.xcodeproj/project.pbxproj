@@ -11,6 +11,8 @@
 		6FAB9D9528BC8DE0001663CB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FAB9D9428BC8DE0001663CB /* SceneDelegate.swift */; };
 		6FAB9D9728BC8DE0001663CB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FAB9D9628BC8DE0001663CB /* MainViewController.swift */; };
 		6FAB9D9C28BC8DE3001663CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FAB9D9B28BC8DE3001663CB /* Assets.xcassets */; };
+		6FE106DF28BC9BE100236F06 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE106DE28BC9BE100236F06 /* MainCollectionViewCell.swift */; };
+		6FF3602E28BCA2D000093F5F /* GameList.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FF3602D28BCA2D000093F5F /* GameList.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 		6FAB9DA028BC8DE3001663CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6FAB9DA528BC8DE3001663CB /* HallofRhythmTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HallofRhythmTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FAB9DAF28BC8DE3001663CB /* HallofRhythmUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HallofRhythmUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FE106DE28BC9BE100236F06 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
+		6FF3602D28BCA2D000093F5F /* GameList.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GameList.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,14 +92,24 @@
 		6FAB9D9128BC8DE0001663CB /* HallofRhythm */ = {
 			isa = PBXGroup;
 			children = (
+				6FF3602C28BCA2A900093F5F /* Data */,
 				6FAB9D9228BC8DE0001663CB /* AppDelegate.swift */,
 				6FAB9D9428BC8DE0001663CB /* SceneDelegate.swift */,
 				6FAB9D9628BC8DE0001663CB /* MainViewController.swift */,
+				6FE106DE28BC9BE100236F06 /* MainCollectionViewCell.swift */,
 				6F8FFC7028BC91EB00B7D52A /* RhythmClassifier.mlmodel */,
 				6FAB9D9B28BC8DE3001663CB /* Assets.xcassets */,
 				6FAB9DA028BC8DE3001663CB /* Info.plist */,
 			);
 			path = HallofRhythm;
+			sourceTree = "<group>";
+		};
+		6FF3602C28BCA2A900093F5F /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				6FF3602D28BCA2D000093F5F /* GameList.json */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,6 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6FAB9D9C28BC8DE3001663CB /* Assets.xcassets in Resources */,
+				6FF3602E28BCA2D000093F5F /* GameList.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +245,7 @@
 				6FAB9D9728BC8DE0001663CB /* MainViewController.swift in Sources */,
 				6FAB9D9328BC8DE0001663CB /* AppDelegate.swift in Sources */,
 				6FAB9D9528BC8DE0001663CB /* SceneDelegate.swift in Sources */,
+				6FE106DF28BC9BE100236F06 /* MainCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

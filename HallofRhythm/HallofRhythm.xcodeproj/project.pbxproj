@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6F8FFC6F28BC91E800B7D52A /* RhythmClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6F8FFC6E28BC91E800B7D52A /* RhythmClassifier.mlmodel */; };
 		6FAB9D9328BC8DE0001663CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FAB9D9228BC8DE0001663CB /* AppDelegate.swift */; };
 		6FAB9D9528BC8DE0001663CB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FAB9D9428BC8DE0001663CB /* SceneDelegate.swift */; };
-		6FAB9D9728BC8DE0001663CB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FAB9D9628BC8DE0001663CB /* ViewController.swift */; };
+		6FAB9D9728BC8DE0001663CB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FAB9D9628BC8DE0001663CB /* MainViewController.swift */; };
 		6FAB9D9C28BC8DE3001663CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FAB9D9B28BC8DE3001663CB /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -32,12 +31,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6F8FFC6E28BC91E800B7D52A /* RhythmClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = RhythmClassifier.mlmodel; path = ../../RhythmClassifier.mlmodel; sourceTree = "<group>"; };
 		6F8FFC7028BC91EB00B7D52A /* RhythmClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RhythmClassifier.mlmodel; sourceTree = "<group>"; };
 		6FAB9D8F28BC8DE0001663CB /* HallofRhythm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HallofRhythm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FAB9D9228BC8DE0001663CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6FAB9D9428BC8DE0001663CB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6FAB9D9628BC8DE0001663CB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6FAB9D9628BC8DE0001663CB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		6FAB9D9B28BC8DE3001663CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6FAB9DA028BC8DE3001663CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6FAB9DA528BC8DE3001663CB /* HallofRhythmTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HallofRhythmTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,7 +71,6 @@
 			isa = PBXGroup;
 			children = (
 				6FAB9D9128BC8DE0001663CB /* HallofRhythm */,
-				6F8FFC6E28BC91E800B7D52A /* RhythmClassifier.mlmodel */,
 				6FAB9D9028BC8DE0001663CB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -93,7 +90,7 @@
 			children = (
 				6FAB9D9228BC8DE0001663CB /* AppDelegate.swift */,
 				6FAB9D9428BC8DE0001663CB /* SceneDelegate.swift */,
-				6FAB9D9628BC8DE0001663CB /* ViewController.swift */,
+				6FAB9D9628BC8DE0001663CB /* MainViewController.swift */,
 				6F8FFC7028BC91EB00B7D52A /* RhythmClassifier.mlmodel */,
 				6FAB9D9B28BC8DE3001663CB /* Assets.xcassets */,
 				6FAB9DA028BC8DE3001663CB /* Info.plist */,
@@ -230,8 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FAB9D9728BC8DE0001663CB /* ViewController.swift in Sources */,
-				6F8FFC6F28BC91E800B7D52A /* RhythmClassifier.mlmodel in Sources */,
+				6FAB9D9728BC8DE0001663CB /* MainViewController.swift in Sources */,
 				6FAB9D9328BC8DE0001663CB /* AppDelegate.swift in Sources */,
 				6FAB9D9528BC8DE0001663CB /* SceneDelegate.swift in Sources */,
 			);

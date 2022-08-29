@@ -13,6 +13,8 @@
 		6FAB9D9C28BC8DE3001663CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FAB9D9B28BC8DE3001663CB /* Assets.xcassets */; };
 		6FE106DF28BC9BE100236F06 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE106DE28BC9BE100236F06 /* MainCollectionViewCell.swift */; };
 		6FF3602E28BCA2D000093F5F /* GameList.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FF3602D28BCA2D000093F5F /* GameList.json */; };
+		6FF3603228BCAAF500093F5F /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF3603128BCAAF500093F5F /* Game.swift */; };
+		6FF3603428BCAE6300093F5F /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF3603328BCAE6300093F5F /* ModelData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		6FAB9DAF28BC8DE3001663CB /* HallofRhythmUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HallofRhythmUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FE106DE28BC9BE100236F06 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		6FF3602D28BCA2D000093F5F /* GameList.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GameList.json; sourceTree = "<group>"; };
+		6FF3603128BCAAF500093F5F /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		6FF3603328BCAE6300093F5F /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,8 @@
 			isa = PBXGroup;
 			children = (
 				6FF3602D28BCA2D000093F5F /* GameList.json */,
+				6FF3603128BCAAF500093F5F /* Game.swift */,
+				6FF3603328BCAE6300093F5F /* ModelData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -243,9 +249,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				6FAB9D9728BC8DE0001663CB /* MainViewController.swift in Sources */,
+				6FF3603228BCAAF500093F5F /* Game.swift in Sources */,
 				6FAB9D9328BC8DE0001663CB /* AppDelegate.swift in Sources */,
 				6FAB9D9528BC8DE0001663CB /* SceneDelegate.swift in Sources */,
 				6FE106DF28BC9BE100236F06 /* MainCollectionViewCell.swift in Sources */,
+				6FF3603428BCAE6300093F5F /* ModelData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

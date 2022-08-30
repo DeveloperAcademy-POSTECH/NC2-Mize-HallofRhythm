@@ -119,6 +119,7 @@ extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let gameVC = GameViewController()
         gameVC.gameName = self.games[indexPath.item].gameName
+        gameVC.imageArray = self.imageArray
         self.navigationController?.pushViewController(gameVC,animated: true)
     }
 }

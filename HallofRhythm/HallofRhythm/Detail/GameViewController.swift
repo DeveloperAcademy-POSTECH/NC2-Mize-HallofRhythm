@@ -9,9 +9,12 @@ import UIKit
 
 class GameViewController: UIViewController {
 
+    var gameName: String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .white
+        
+        navigationItem.title = gameName
     }
 }

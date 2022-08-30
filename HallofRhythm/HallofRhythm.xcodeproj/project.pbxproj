@@ -96,16 +96,24 @@
 		6FAB9D9128BC8DE0001663CB /* HallofRhythm */ = {
 			isa = PBXGroup;
 			children = (
+				6FB570EB28BDF34F00F97A9F /* Detail */,
 				6FDABD0028BDDB9F00C38231 /* Main */,
 				6FF3602C28BCA2A900093F5F /* Data */,
 				6FAB9D9228BC8DE0001663CB /* AppDelegate.swift */,
 				6FAB9D9428BC8DE0001663CB /* SceneDelegate.swift */,
-				6FB570E928BDE34F00F97A9F /* GameViewController.swift */,
 				6F8FFC7028BC91EB00B7D52A /* RhythmClassifier.mlmodel */,
 				6FAB9D9B28BC8DE3001663CB /* Assets.xcassets */,
 				6FAB9DA028BC8DE3001663CB /* Info.plist */,
 			);
 			path = HallofRhythm;
+			sourceTree = "<group>";
+		};
+		6FB570EB28BDF34F00F97A9F /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				6FB570E928BDE34F00F97A9F /* GameViewController.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		6FDABD0028BDDB9F00C38231 /* Main */ = {

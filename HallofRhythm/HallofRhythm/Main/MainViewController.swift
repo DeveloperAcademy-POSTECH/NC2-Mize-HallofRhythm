@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import PhotosUI
 
 class MainViewController: UIViewController {
     
     var games: [Game] = []
+    var itemProviders: [NSItemProvider] = []
+    var imageArray: [UIImage] = []
     
     // CollectionView 기본 설정
     private let gridFlowLayout : UICollectionViewFlowLayout = {
@@ -41,7 +44,7 @@ class MainViewController: UIViewController {
         
         // Navigation Bar
         navigationItem.title = "리듬게임"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(presentPicker))
         
         doJsonLoad()
         self.collectionView.reloadData()
@@ -70,6 +73,19 @@ class MainViewController: UIViewController {
         } catch {
           print(error.localizedDescription)
         }
+    }
+    
+    //ImagePicker 함수
+    @objc func presentPicker(_ sender: Any) {
+        //ImagePicker 기본 설정
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 0
+        
+        //Picker 표시
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true)
     }
 
 }
@@ -102,6 +118,25 @@ extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let gameVC = GameViewController()
+        gameVC.gameName = self.games[indexPath.item].gameName
         self.navigationController?.pushViewController(gameVC,animated: true)
+    }
+}
+
+extension MainViewController: PHPickerViewControllerDelegate {
+    //받아온 이미지를 imageArray 배열에 추가
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]){
+        picker.dismiss(animated:true)
+        itemProviders = results.map(\.itemProvider)
+        for item in itemProviders {
+            if item.canLoadObject(ofClass: UIImage.self) {
+                item.loadObject(ofClass: UIImage.self) { image, error in
+                    DispatchQueue.main.async {
+                        guard let image = image as? UIImage else { return }
+                        self.imageArray.append(image)
+                    }
+                }
+            }
+        }
     }
 }

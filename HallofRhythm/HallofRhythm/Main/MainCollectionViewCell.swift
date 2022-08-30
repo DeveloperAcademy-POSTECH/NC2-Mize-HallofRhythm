@@ -34,7 +34,7 @@ final class mainImageCell: UICollectionViewCell {
     
     override init(frame:CGRect){
         super.init(frame:frame)
-        self.contentView.backgroundColor = .yellow
+        self.contentView.backgroundColor = .systemGray2
         self.contentView.addSubview(self.imageView)
         self.contentView.addSubview(self.gameLabel)
         
@@ -45,6 +45,7 @@ final class mainImageCell: UICollectionViewCell {
             self.imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
             self.imageView.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, multiplier: 0.7),
             self.imageView.heightAnchor.constraint(equalTo: self.contentView.heightAnchor, multiplier: 0.7),
+            
             self.gameLabel.centerXAnchor.constraint(equalTo:self.contentView.centerXAnchor),
             self.gameLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
             self.gameLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 100)
@@ -62,6 +63,7 @@ final class mainImageCell: UICollectionViewCell {
     }
 }
 
+// UIColor Hex Color Extension
 extension UIColor {
    convenience init(red: Int, green: Int, blue: Int) {
        assert(red >= 0 && red <= 255, "Invalid red component")

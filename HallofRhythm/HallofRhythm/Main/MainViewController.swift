@@ -18,7 +18,6 @@ class MainViewController: UIViewController {
     var CytusArray: [UIImage] = []
     var CytusIIArray: [UIImage] = []
     var DynamixArray: [UIImage] = []
-    var tempName: String = ""
     
     // CollectionView 기본 설정
     private let gridFlowLayout : UICollectionViewFlowLayout = {
@@ -95,50 +94,33 @@ class MainViewController: UIViewController {
     }
     
     // MARK: - Image Classifier
-    lazy var classificationRequest: VNCoreMLRequest = {
+    func updateClassifications(for image: UIImage) {
+        guard let ciImage = CIImage(image: image) else { fatalError("Unable to create \(CIImage.self) from \(image).") }
+        
         do {
             let defaultConfig = MLModelConfiguration()
             let model = try VNCoreMLModel(for: ResultClassifier(configuration:defaultConfig).model)
             
             let request = VNCoreMLRequest(model: model, completionHandler: { [weak self] request, error in
-                self?.processClassifications(for: request, error: error)
+                self?.processClassifications(for: request, error: error, image: image)
             })
             request.imageCropAndScaleOption = .centerCrop
-            return request
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                let handler = VNImageRequestHandler(ciImage: ciImage)
+                do {
+                    try handler.perform([request])
+                } catch {
+                    print("Failed to perform classification.")
+                }
+            }
+            
         } catch {
             fatalError("Failed to load Vision ML model: \(error)")
         }
-    }()
-    
-    /// - Tag: PerformRequests
-    func updateClassifications(for image: UIImage) {
-        guard let ciImage = CIImage(image: image) else { fatalError("Unable to create \(CIImage.self) from \(image).") }
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            let handler = VNImageRequestHandler(ciImage: ciImage)
-            do {
-                try handler.perform([self.classificationRequest])
-                
-                if self.tempName == "Arcaea" {
-                    self.ArcaeaArray.append(image)
-                }
-                else if self.tempName == "Cytus" {
-                    self.CytusArray.append(image)
-                }
-                else if self.tempName == "Cytus II" {
-                    self.CytusIIArray.append(image)
-                }
-                else if self.tempName == "Dynamix" {
-                    self.DynamixArray.append(image)
-                }
-                
-            } catch {
-                print("Failed to perform classification.")
-            }
-        }
     }
     
-    func processClassifications(for request: VNRequest, error: Error?) {
+    func processClassifications(for request: VNRequest, error: Error?, image: UIImage) {
         DispatchQueue.main.async {
             guard let results = request.results else { return }
             
@@ -149,9 +131,19 @@ class MainViewController: UIViewController {
                 let description = topClassification.map { classification in
                     return String(classification.identifier)
                 }
-                self.tempName = description[0]
-                print("\(description)")
-                print("\(self.tempName)")
+                
+                if description[0] == "Arcaea" {
+                    self.ArcaeaArray.append(image)
+                }
+                else if description[0] == "Cytus" {
+                    self.CytusArray.append(image)
+                }
+                else if description[0] == "Cytus II" {
+                    self.CytusIIArray.append(image)
+                }
+                else if description[0] == "Dynamix" {
+                    self.DynamixArray.append(image)
+                }
             }
         }
     }

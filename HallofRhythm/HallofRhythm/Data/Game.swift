@@ -8,6 +8,7 @@
 import Foundation
 
 struct Game: Codable {
+    var id: Int
     var gameName: String
     var imageName: String
 }

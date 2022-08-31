@@ -1,17 +1,21 @@
 [
     {
+        "id" : 1,
         "gameName" : "Arcaea",
         "imageName" : "Arcaea"
     },
     {
+        "id" : 2,
         "gameName" : "Cytus",
         "imageName" : "Cytus"
     },
     {
+        "id" : 3,
         "gameName" : "Cytus II",
         "imageName" : "Cytus II"
     },
     {
+        "id" : 4,
         "gameName" : "Dynamix",
         "imageName" : "Dynamix"
     }

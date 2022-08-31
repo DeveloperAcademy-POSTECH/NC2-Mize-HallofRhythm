@@ -7,12 +7,18 @@
 
 import UIKit
 import PhotosUI
+import Vision
+import CoreML
 
 class MainViewController: UIViewController {
     
     var games: [Game] = []
     var itemProviders: [NSItemProvider] = []
-    var imageArray: [UIImage] = []
+    var ArcaeaArray: [UIImage] = []
+    var CytusArray: [UIImage] = []
+    var CytusIIArray: [UIImage] = []
+    var DynamixArray: [UIImage] = []
+    var tempName: String = ""
     
     // CollectionView 기본 설정
     private let gridFlowLayout : UICollectionViewFlowLayout = {
@@ -36,7 +42,7 @@ class MainViewController: UIViewController {
         return view
     }()
     
-    //MARK: - viewDidLoad
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -62,7 +68,7 @@ class MainViewController: UIViewController {
         collectionView.delegate = self
     }
     
-    //json Parsing
+    // json Parsing
     func doJsonLoad() {
         guard let path = Bundle.main.path(forResource: "GameList", ofType: "json") else { return }
         guard let jsonString = try? String(contentsOfFile: path) else { return }
@@ -75,20 +81,82 @@ class MainViewController: UIViewController {
         }
     }
     
-    //ImagePicker 함수
+    // ImagePicker 함수
     @objc func presentPicker(_ sender: Any) {
         //ImagePicker 기본 설정
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
         configuration.selectionLimit = 0
         
-        //Picker 표시
+        // Picker 표시
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = self
         present(picker, animated: true)
     }
+    
+    // MARK: - Image Classifier
+    lazy var classificationRequest: VNCoreMLRequest = {
+        do {
+            let defaultConfig = MLModelConfiguration()
+            let model = try VNCoreMLModel(for: ResultClassifier(configuration:defaultConfig).model)
+            
+            let request = VNCoreMLRequest(model: model, completionHandler: { [weak self] request, error in
+                self?.processClassifications(for: request, error: error)
+            })
+            request.imageCropAndScaleOption = .centerCrop
+            return request
+        } catch {
+            fatalError("Failed to load Vision ML model: \(error)")
+        }
+    }()
+    
+    /// - Tag: PerformRequests
+    func updateClassifications(for image: UIImage) {
+        guard let ciImage = CIImage(image: image) else { fatalError("Unable to create \(CIImage.self) from \(image).") }
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            let handler = VNImageRequestHandler(ciImage: ciImage)
+            do {
+                try handler.perform([self.classificationRequest])
+                
+                if self.tempName == "Arcaea" {
+                    self.ArcaeaArray.append(image)
+                }
+                else if self.tempName == "Cytus" {
+                    self.CytusArray.append(image)
+                }
+                else if self.tempName == "Cytus II" {
+                    self.CytusIIArray.append(image)
+                }
+                else if self.tempName == "Dynamix" {
+                    self.DynamixArray.append(image)
+                }
+                
+            } catch {
+                print("Failed to perform classification.")
+            }
+        }
+    }
+    
+    func processClassifications(for request: VNRequest, error: Error?) {
+        DispatchQueue.main.async {
+            guard let results = request.results else { return }
+            
+            let classifications = results as! [VNClassificationObservation]
 
+            if !(classifications.isEmpty) {
+                let topClassification = classifications.prefix(4)
+                let description = topClassification.map { classification in
+                    return String(classification.identifier)
+                }
+                self.tempName = description[0]
+                print("\(description)")
+                print("\(self.tempName)")
+            }
+        }
+    }
 }
+
 
 extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     // CollectionView Cell의 Size 지정
@@ -119,13 +187,26 @@ extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let gameVC = GameViewController()
         gameVC.gameName = self.games[indexPath.item].gameName
-        gameVC.imageArray = self.imageArray
+        
+        if gameVC.gameName == "Arcaea" {
+            gameVC.imageArray = self.ArcaeaArray
+        }
+        else if gameVC.gameName == "Cytus" {
+            gameVC.imageArray = self.CytusArray
+        }
+        else if gameVC.gameName == "Cytus II" {
+            gameVC.imageArray = self.CytusIIArray
+        }
+        else if gameVC.gameName == "Dynamix" {
+            gameVC.imageArray = self.DynamixArray
+        }
+        
         self.navigationController?.pushViewController(gameVC,animated: true)
     }
 }
 
 extension MainViewController: PHPickerViewControllerDelegate {
-    //받아온 이미지를 imageArray 배열에 추가
+    // 받아온 이미지를 imageArray 배열에 추가
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]){
         picker.dismiss(animated:true)
         itemProviders = results.map(\.itemProvider)
@@ -134,7 +215,7 @@ extension MainViewController: PHPickerViewControllerDelegate {
                 item.loadObject(ofClass: UIImage.self) { image, error in
                     DispatchQueue.main.async {
                         guard let image = image as? UIImage else { return }
-                        self.imageArray.append(image)
+                        self.updateClassifications(for: image)
                     }
                 }
             }

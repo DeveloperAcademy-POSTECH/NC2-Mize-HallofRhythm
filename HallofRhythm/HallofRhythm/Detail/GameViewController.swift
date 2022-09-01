@@ -34,6 +34,14 @@ class GameViewController: UIViewController {
         return view
     }()
     
+    // MARK: - viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        CoreDataManager.coreDM.readCoreData()
+        collectionView.reloadData()
+    }
+    
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -67,13 +75,21 @@ extension GameViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
     
     // CollectionView에 표시되는 Item의 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.imageArray!.count
+        var count: Int = 0
+        for item in CoreDataManager.coreDM.resultArray! {
+            if item.value(forKey:"gameTag") as! String == gameName! {
+                count = count + 1
+            }
+        }
+        return count
     }
 
     // CollectionView의 각 cell에 이미지 표시
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: resultImageCell.id, for: indexPath) as! resultImageCell
-        cell.prepare(image: imageArray![indexPath.item])
+        if CoreDataManager.coreDM.resultArray!.reversed()[indexPath.item].value(forKey: "gameTag") as! String == gameName! {
+            cell.prepare(image: UIImage(data: CoreDataManager.coreDM.resultArray!.reversed()[indexPath.item].value(forKey: "thumbnail") as! Data))
+        }
         return cell
       }
 }

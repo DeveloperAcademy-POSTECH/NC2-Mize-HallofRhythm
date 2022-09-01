@@ -14,10 +14,6 @@ class MainViewController: UIViewController {
     
     var games: [Game] = []
     var itemProviders: [NSItemProvider] = []
-    var ArcaeaArray: [UIImage] = []
-    var CytusArray: [UIImage] = []
-    var CytusIIArray: [UIImage] = []
-    var DynamixArray: [UIImage] = []
     
     // CollectionView 기본 설정
     private let gridFlowLayout : UICollectionViewFlowLayout = {
@@ -131,19 +127,7 @@ class MainViewController: UIViewController {
                 let description = topClassification.map { classification in
                     return String(classification.identifier)
                 }
-                
-                if description[0] == "Arcaea" {
-                    self.ArcaeaArray.append(image)
-                }
-                else if description[0] == "Cytus" {
-                    self.CytusArray.append(image)
-                }
-                else if description[0] == "Cytus II" {
-                    self.CytusIIArray.append(image)
-                }
-                else if description[0] == "Dynamix" {
-                    self.DynamixArray.append(image)
-                }
+                CoreDataManager.coreDM.saveCoreData(gameTag:description[0], image: image.jpegData(compressionQuality: 0)!)
             }
         }
     }
@@ -179,20 +163,6 @@ extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let gameVC = GameViewController()
         gameVC.gameName = self.games[indexPath.item].gameName
-        
-        if gameVC.gameName == "Arcaea" {
-            gameVC.imageArray = self.ArcaeaArray
-        }
-        else if gameVC.gameName == "Cytus" {
-            gameVC.imageArray = self.CytusArray
-        }
-        else if gameVC.gameName == "Cytus II" {
-            gameVC.imageArray = self.CytusIIArray
-        }
-        else if gameVC.gameName == "Dynamix" {
-            gameVC.imageArray = self.DynamixArray
-        }
-        
         self.navigationController?.pushViewController(gameVC,animated: true)
     }
 }

@@ -30,10 +30,10 @@ class CoreDataManager {
         object.setValue(Date(), forKey: "date")
         object.setValue(UUID(), forKey: "id")
         object.setValue(image, forKey: "image")
-        object.setValue(UIImage(data:image)!.preparingThumbnail(of:CGSize(width:390, height:390))?.jpegData(compressionQuality:0), forKey: "thumbnail")
+        object.setValue(UIImage(data:image)!.preparingThumbnail(of:CGSize(width:400, height:400))?.jpegData(compressionQuality:0), forKey: "thumbnail")
         
+        // managedContext 내부의 변경사항 저장
         do {
-            // managedContext 내부의 변경사항 저장
             try managedContext.save()
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
@@ -53,7 +53,7 @@ class CoreDataManager {
             let resultCDArray = try managedContext.fetch(fetchRequest)
             self.resultArray = resultCDArray
         } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
+            print("Could not read. \(error), \(error.userInfo)")
         }
     }
     
@@ -66,7 +66,7 @@ class CoreDataManager {
         do {
             try managedContext.save()
         } catch let error as NSError {
-            print("Could not update. \(error), \(error.userInfo)")
+            print("Could not delete. \(error), \(error.userInfo)")
         }
     }
 }

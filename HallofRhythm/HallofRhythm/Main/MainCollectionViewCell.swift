@@ -41,14 +41,12 @@ final class mainImageCell: UICollectionViewCell {
         // AutoLayout
         NSLayoutConstraint.activate([
             self.imageView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
-            self.imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
             self.imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
             self.imageView.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, multiplier: 0.7),
             self.imageView.heightAnchor.constraint(equalTo: self.contentView.heightAnchor, multiplier: 0.7),
             
             self.gameLabel.centerXAnchor.constraint(equalTo:self.contentView.centerXAnchor),
-            self.gameLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-            self.gameLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 100)
+            self.gameLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5)
         ])
     }
     

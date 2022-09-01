@@ -48,6 +48,7 @@ class MainViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(presentPicker))
         
         doJsonLoad()
+        CoreDataManager.coreDM.readCoreData()
         self.collectionView.reloadData()
         
         // CollectionView AutoLayout
@@ -158,11 +159,16 @@ extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
       }
 }
 
-// CollectionView의 이미지 클릭시 CellDetailView 표시
+// CollectionView의 이미지 클릭시 GameView 표시
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let gameVC = GameViewController()
         gameVC.gameName = self.games[indexPath.item].gameName
+        for item in CoreDataManager.coreDM.resultArray! {
+            if item.value(forKey:"gameTag") as? String == gameVC.gameName {
+                gameVC.imageArray.append(item)
+            }
+        }
         self.navigationController?.pushViewController(gameVC,animated: true)
     }
 }

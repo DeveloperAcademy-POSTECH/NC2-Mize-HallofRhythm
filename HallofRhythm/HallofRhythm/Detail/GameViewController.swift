@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import CoreData
 
 class GameViewController: UIViewController {
 
     var gameName: String?
-    var imageArray: [UIImage]?
+    var imageArray: [NSManagedObject] = []
     
     // CollectionView 기본 설정
     private let gridFlowLayout : UICollectionViewFlowLayout = {
@@ -75,21 +76,13 @@ extension GameViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
     
     // CollectionView에 표시되는 Item의 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var count: Int = 0
-        for item in CoreDataManager.coreDM.resultArray! {
-            if item.value(forKey:"gameTag") as! String == gameName! {
-                count = count + 1
-            }
-        }
-        return count
+        return self.imageArray.count
     }
 
     // CollectionView의 각 cell에 이미지 표시
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: resultImageCell.id, for: indexPath) as! resultImageCell
-        if CoreDataManager.coreDM.resultArray!.reversed()[indexPath.item].value(forKey: "gameTag") as! String == gameName! {
-            cell.prepare(image: UIImage(data: CoreDataManager.coreDM.resultArray!.reversed()[indexPath.item].value(forKey: "thumbnail") as! Data))
-        }
+        cell.prepare(image: UIImage(data: self.imageArray.reversed()[indexPath.item].value(forKey: "thumbnail") as! Data))
         return cell
       }
 }

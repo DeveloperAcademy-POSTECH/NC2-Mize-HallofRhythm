@@ -37,6 +37,14 @@ class MainViewController: UIViewController {
         return view
     }()
     
+    // MARK: - viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        doJsonLoad()
+        CoreDataManager.coreDM.readCoreData()
+        self.collectionView.reloadData()
+    }
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +54,6 @@ class MainViewController: UIViewController {
         // Navigation Bar
         navigationItem.title = "리듬게임"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(presentPicker))
-        
-        doJsonLoad()
-        CoreDataManager.coreDM.readCoreData()
-        self.collectionView.reloadData()
         
         // CollectionView AutoLayout
         NSLayoutConstraint.activate([

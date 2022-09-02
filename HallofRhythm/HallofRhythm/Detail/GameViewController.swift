@@ -38,7 +38,6 @@ class GameViewController: UIViewController {
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        CoreDataManager.coreDM.readCoreData()
         collectionView.reloadData()
     }
     
@@ -87,11 +86,13 @@ extension GameViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
       }
 }
 
-//// CollectionView의 이미지 클릭시 CellDetailView 표시
-//extension GameViewController: UICollectionViewDelegate {
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let gameVC = GameViewController()
-//        gameVC.imageArray = self.imageArray
-//        self.navigationController?.pushViewController(gameVC,animated: true)
-//    }
-//}
+// CollectionView의 이미지 클릭시 CellDetailView 표시
+extension GameViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let DetailVC = DetailViewController()
+        DetailVC.getindex = indexPath.item
+        DetailVC.getimage = UIImage(data: self.imageArray.reversed()[indexPath.item].value(forKey: "image") as! Data)
+        DetailVC.getGame = self.gameName
+        self.navigationController?.pushViewController(DetailVC,animated: true)
+    }
+}

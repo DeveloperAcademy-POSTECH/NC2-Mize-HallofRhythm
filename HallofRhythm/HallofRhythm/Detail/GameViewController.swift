@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import CoreData
 
 class GameViewController: UIViewController {
 
     var gameName: String?
-    var imageArray: [UIImage]?
+    var imageArray: [NSManagedObject] = []
     
     // CollectionView 기본 설정
     private let gridFlowLayout : UICollectionViewFlowLayout = {
@@ -34,6 +35,13 @@ class GameViewController: UIViewController {
         return view
     }()
     
+    // MARK: - viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.reloadData()
+    }
+    
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -67,22 +75,24 @@ extension GameViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
     
     // CollectionView에 표시되는 Item의 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.imageArray!.count
+        return self.imageArray.count
     }
 
     // CollectionView의 각 cell에 이미지 표시
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: resultImageCell.id, for: indexPath) as! resultImageCell
-        cell.prepare(image: imageArray![indexPath.item])
+        cell.prepare(image: UIImage(data: self.imageArray.reversed()[indexPath.item].value(forKey: "thumbnail") as! Data))
         return cell
       }
 }
 
-//// CollectionView의 이미지 클릭시 CellDetailView 표시
-//extension GameViewController: UICollectionViewDelegate {
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let gameVC = GameViewController()
-//        gameVC.imageArray = self.imageArray
-//        self.navigationController?.pushViewController(gameVC,animated: true)
-//    }
-//}
+// CollectionView의 이미지 클릭시 CellDetailView 표시
+extension GameViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let DetailVC = DetailViewController()
+        DetailVC.getindex = indexPath.item
+        DetailVC.getimage = UIImage(data: self.imageArray.reversed()[indexPath.item].value(forKey: "image") as! Data)
+        DetailVC.getGame = self.gameName
+        self.navigationController?.pushViewController(DetailVC,animated: true)
+    }
+}
